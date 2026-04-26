@@ -2,6 +2,18 @@
 
 An end-to-end data pipeline that ingests cryptocurrency data from the CoinGecko API, stores it in PostgreSQL, and transforms it into analytics-ready models using dbt.
 
+This pipeline enables tracking cryptocurrency price trends over time, allowing analysis of price movements and changes between ingestion intervals.
+
+## Example Output
+
+Below is an example query from the analytics model:
+
+![Example Query](docs/example_query.png)
+
+And an example output:
+
+![Example Output](docs/example_output.png)
+
 ---
 
 ## 🚀 Tech Stack
@@ -125,7 +137,7 @@ dbt test
 
 ---
 
-## 📊 Example Queries
+## Example Queries
 
 ```sql
 SELECT *
@@ -141,7 +153,7 @@ ORDER BY last_updated_at DESC;
 
 ---
 
-## 🧪 dbt Tests
+## dbt Tests
 
 * `not_null`
 * `unique`
@@ -155,7 +167,7 @@ dbt test
 
 ---
 
-## 📌 Key Features
+## Key Features
 
 * Idempotent ingestion (`ON CONFLICT DO NOTHING`)
 * Environment-based configuration (`.env`)
@@ -165,7 +177,16 @@ dbt test
 
 ---
 
-## 🚧 Future Improvements
+## Design Decisions
+
+- **Idempotent ingestion**: Used `ON CONFLICT DO NOTHING` to prevent duplicate records when re-running the pipeline.
+- **Layered dbt models**: Separated staging (`stg_`) and marts (`fact_`) layers for clarity and maintainability.
+- **Dockerised database**: Used Docker to ensure a consistent and reproducible local development environment.
+- **Environment variables**: Stored database credentials in `.env` to avoid hardcoding sensitive information.
+
+---
+
+## Future Improvements
 
 * Add scheduling (Airflow / cron)
 * Add dashboards (Power BI / Tableau)
