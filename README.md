@@ -1,4 +1,4 @@
-# 📈 Crypto Data Pipeline (Docker + Postgres + dbt)
+# Crypto Data Pipeline (Docker + Postgres + dbt)
 
 An end-to-end data pipeline that ingests cryptocurrency data from the CoinGecko API, stores it in PostgreSQL, and transforms it into analytics-ready models using dbt.
 
@@ -16,7 +16,7 @@ And an example output:
 
 ---
 
-## 🚀 Tech Stack
+## Tech Stack
 
 * Python (data ingestion)
 * PostgreSQL (data warehouse)
@@ -26,7 +26,7 @@ And an example output:
 
 ---
 
-## 🏗️ Architecture
+## Architecture
 
 1. **Ingestion (Python)**
 
@@ -56,7 +56,7 @@ And an example output:
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
 ```
 .
@@ -69,7 +69,7 @@ And an example output:
 
 ---
 
-## ⚙️ Setup Instructions
+## Setup Instructions
 
 ### 1. Clone repo
 
