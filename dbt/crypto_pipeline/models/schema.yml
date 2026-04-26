@@ -2,28 +2,112 @@ version: 2
 
 models:
   - name: stg_crypto_prices
-    description: "Cleaned staging view of raw cryptocurrency price data."
+    description: "Staging model for raw cryptocurrency price data from CoinGecko."
     columns:
       - name: id
-        tests:
+        description: "Unique row identifier from the raw ingestion table."
+        data_tests:
           - not_null
           - unique
+
       - name: coin_id
-        tests:
+        description: "CoinGecko asset identifier, for example bitcoin, ethereum, or solana."
+        data_tests:
           - not_null
+          - accepted_values:
+              arguments:
+                values: ["bitcoin", "ethereum", "solana"]
+
+      - name: currency
+        description: "Fiat currency used for pricing."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["usd"]
+
       - name: price
-        tests:
+        description: "Latest asset price in the selected currency."
+        data_tests:
+          - not_null
+
+      - name: market_cap
+        description: "Market capitalisation in the selected currency."
+
+      - name: volume_24h
+        description: "24-hour trading volume in the selected currency."
+
+      - name: price_change_24h
+        description: "24-hour percentage price change from CoinGecko."
+
+      - name: last_updated_at
+        description: "Timestamp from CoinGecko showing when the price was last updated."
+        data_tests:
+          - not_null
+
+      - name: ingested_at
+        description: "Timestamp when the row was loaded into Postgres."
+        data_tests:
           - not_null
 
   - name: fact_crypto_prices
-    description: "Analytics-ready cryptocurrency price fact table."
+    description: "Analytics-ready fact table containing crypto prices and calculated changes between ingestions."
     columns:
       - name: coin_id
-        tests:
+        description: "CoinGecko asset identifier."
+        data_tests:
           - not_null
+
+      - name: currency
+        description: "Fiat currency used for pricing."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["usd"]
+
       - name: price
-        tests:
+        description: "Current price for the asset at the recorded timestamp."
+        data_tests:
           - not_null
+
+      - name: previous_price
+        description: "Previous observed price for the same asset."
+
+      - name: price_change_since_previous_ingestion
+        description: "Absolute price movement since the previous ingestion for the same asset."
+
+      - name: price_change_pct_since_previous_ingestion
+        description: "Percentage price movement since the previous ingestion for the same asset."
+
+      - name: market_cap
+        description: "Market capitalisation in the selected currency."
+
+      - name: volume_24h
+        description: "24-hour trading volume in the selected currency."
+
+      - name: price_change_24h
+        description: "24-hour percentage price change from CoinGecko."
+
+      - name: last_updated_at
+        description: "Timestamp from CoinGecko showing when the price was last updated."
+        data_tests:
+          - not_null
+
       - name: ingested_at
-        tests:
+        description: "Timestamp when the row was loaded into Postgres."
+        data_tests:
           - not_null
+
+      - name: latest_price_rank
+        description: "Rank of the price observation per asset, ordered by latest timestamp first."
+        data_tests:
+          - not_null
+
+      - name: is_latest_price
+        description: "Boolean flag showing whether this is the latest available price row for the asset."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [true, false]
