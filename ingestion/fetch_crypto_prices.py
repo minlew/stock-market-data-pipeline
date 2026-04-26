@@ -1,16 +1,18 @@
+import os
 import logging
 from datetime import datetime, timezone
-
 import psycopg2
 import requests
 
+from dotenv import load_dotenv
+load_dotenv()
 
 DB_CONFIG = {
-    "host": "127.0.0.1",
-    "port": 55432,
-    "dbname": "crypto_db",
-    "user": "crypto_user",
-    "password": "crypto_pass",
+    "host": os.getenv("DB_HOST"),
+    "port": int(os.getenv("DB_PORT")),
+    "dbname": os.getenv("DB_NAME"),
+    "user": os.getenv("DB_USER"),
+    "password": os.getenv("DB_PASSWORD"),
 }
 
 COINS = ["bitcoin", "ethereum", "solana"]

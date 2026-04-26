@@ -1,6 +1,17 @@
+# Environment variables
+.env
+
+# Virtual environments
 venv/
 .venv/
-.idea/
+
+# Python
 __pycache__/
 *.pyc
-.env
+
+# IDE
+.idea/
+
+# dbt artifacts (should NOT be committed)
+dbt/**/logs/
+dbt/**/target/
