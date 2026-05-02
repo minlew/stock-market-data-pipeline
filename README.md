@@ -4,18 +4,6 @@ An end-to-end data pipeline that ingests cryptocurrency data from the CoinGecko 
 
 This pipeline enables tracking cryptocurrency price trends over time, allowing analysis of price movements and changes between ingestion intervals.
 
-## Example Output
-
-Below is an example query from the analytics model:
-
-![Example Query](docs/example_query.png)
-
-And an example output:
-
-![Example Output](docs/example_output.png)
-
----
-
 ## Tech Stack
 
 * Python (data ingestion)
@@ -137,33 +125,15 @@ dbt test
 
 ---
 
-## Example Queries
+## Example Query & Output
 
-```sql
-SELECT *
-FROM analytics.fact_crypto_prices
-WHERE is_latest_price = true;
-```
+Below is an example query from the analytics model:
 
-```sql
-SELECT coin_id, price_change_pct_since_previous_ingestion
-FROM analytics.fact_crypto_prices
-ORDER BY last_updated_at DESC;
-```
+![Example Query](docs/example_query.png)
 
----
+And an example output:
 
-## dbt Tests
-
-* `not_null`
-* `unique`
-* `accepted_values`
-
-Run:
-
-```bash
-dbt test
-```
+![Example Output](docs/example_output.png)
 
 ---
 
