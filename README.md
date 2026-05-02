@@ -137,16 +137,6 @@ And an example output:
 
 ---
 
-## Key Features
-
-* Idempotent ingestion (`ON CONFLICT DO NOTHING`)
-* Environment-based configuration (`.env`)
-* Dockerised database
-* Layered dbt models (staging → marts)
-* Data quality testing with dbt
-
----
-
 ## Design Decisions
 
 - **Idempotent ingestion**: Used `ON CONFLICT DO NOTHING` to prevent duplicate records when re-running the pipeline.
